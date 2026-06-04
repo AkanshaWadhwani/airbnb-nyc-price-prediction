@@ -1,82 +1,185 @@
-Airbnb NYC Price Prediction
-Project Overview
+# Airbnb NYC Price Prediction: Data Cleaning, Leakage Detection, and Model Comparison
 
-This project predicts Airbnb listing prices in New York City using machine learning techniques. The study focuses on:
+## Overview
 
-Data cleaning and preprocessing
-Missing value treatment
-Outlier handling
-Feature engineering
-Data leakage detection
-Comparison of linear and nonlinear regression models
+Predicting Airbnb listing prices is a common machine learning problem, but model performance can be heavily influenced by data quality and feature selection.
 
-The objective is to evaluate how different modeling approaches perform on real-world rental pricing data.
+This project analyzes Airbnb Open Data for New York City and develops regression models to predict listing prices. Along the way, extensive data cleaning, missing value handling, feature engineering, and model evaluation were performed.
 
-Dataset
+A key contribution of this project is the identification and removal of **data leakage**, demonstrating how seemingly strong model performance can be misleading when target-related information is unintentionally included.
 
-Airbnb NYC Open Data contains information such as:
+---
 
-Neighbourhood
-Room type
-Availability
-Number of reviews
-Minimum nights
-Host information
-Geographic location
+## Dataset
 
-Target Variable:
-price
+### Source
 
-Project Workflow
-1. Data Cleaning
-Removed duplicate records
-Handled missing values
-Treated outliers
-Corrected inconsistent data types
-2. Exploratory Data Analysis
-Distribution analysis
-Correlation analysis
-Feature relationships
-Price trend visualization
-3. Leakage Detection
-Potential leakage features were identified and removed to ensure fair model evaluation.
-4. Feature Engineering
-Encoding categorical variables
-Scaling numerical features
-Feature selection
-5. Model Building
+Airbnb Open Data – New York City Listings
 
-Linear Models:
+### Objective
 
-Linear Regression
+Predict Airbnb listing prices using:
 
-Nonlinear Models:
+* Property characteristics
+* Location information
+* Host-related attributes
+* Review statistics
+* Availability metrics
 
-Random Forest Regressor
+---
 
-6. Model Evaluation
+## Project Workflow
 
-Metrics:
+### 1. Data Cleaning
 
-Linear Regression:
-R2: -0.0008153622930815452
-RMSE: 332.01507273241964
+Several data quality issues were identified and corrected:
 
-Random Forest:
-R2: 0.3540999046498957
-RMSE: 266.7248582122049
-The nonlinear models significantly outperformed linear models, demonstrating their ability to capture complex relationships in Airbnb pricing data.
+* Removed duplicate records
+* Handled invalid negative values
+* Standardized categorical labels
+* Converted string-based currency fields into numerical values
+* Corrected inconsistent spellings
 
-Technologies Used
-Python
-Pandas
-NumPy
-Matplotlib
-Seaborn
-Scikit-learn
+---
 
-Future Improvements
-Hyperparameter tuning
-Deployment using Streamlit
-Geographic feature engineering
-Ensemble methods
+### 2. Missing Value Treatment
+
+Different missing-value strategies were explored, including:
+
+* Statistical imputation
+* KNN imputation
+* Median-based replacement
+
+Missing values were handled based on the characteristics of each feature.
+
+---
+
+### 3. Feature Engineering
+
+Feature engineering steps included:
+
+* One-hot encoding categorical variables
+* Creation of model-ready numerical features
+* Removal of redundant attributes
+* Preparation of features for regression models
+
+---
+
+### 4. Exploratory Data Analysis (EDA)
+
+EDA was performed to understand:
+
+* Price distributions
+* Neighborhood trends
+* Availability patterns
+* Relationships between listing attributes and price
+
+Visualizations were used to identify important trends and anomalies.
+
+---
+
+## Data Leakage Investigation
+
+During model development, unusually strong performance was observed.
+
+Further investigation revealed that the **Service Fee** variable was highly correlated with the target variable (Price), resulting in data leakage.
+
+### Why This Matters
+
+Data leakage occurs when information unavailable at prediction time is inadvertently used during training.
+
+This can produce unrealistically optimistic results and reduce real-world model reliability.
+
+To ensure a fair evaluation, the leakage-inducing feature was removed and all models were retrained.
+
+---
+
+## Models Evaluated
+
+The following regression models were compared:
+
+* Linear Regression
+* Random Forest Regressor
+* XGBoost Regressor
+
+---
+
+## Evaluation Metrics
+
+Model performance was evaluated using:
+
+* Mean Absolute Error (MAE)
+* Root Mean Squared Error (RMSE)
+* R² Score
+
+These metrics provide insight into prediction accuracy and generalization capability.
+
+---
+
+## Key Findings
+
+### Data Quality Matters
+
+Cleaning inconsistent records and handling missing values significantly improved dataset reliability.
+
+### Leakage Can Mislead Results
+
+Including Service Fee produced unrealistically strong performance. Removing the leakage source resulted in more trustworthy evaluation metrics.
+
+### Model Comparison
+
+Tree-based models demonstrated stronger predictive capability than linear models, suggesting the presence of nonlinear relationships within the data.
+
+### Location Remains Important
+
+Neighborhood and property-related characteristics contributed substantially to listing price prediction.
+
+---
+
+## Skills Demonstrated
+
+* Data Cleaning
+* Exploratory Data Analysis
+* Feature Engineering
+* Missing Value Imputation
+* One-Hot Encoding
+* Regression Modeling
+* Data Leakage Detection
+* Model Evaluation
+* Machine Learning Workflow Design
+
+---
+
+## Technologies Used
+
+* Python
+* Pandas
+* NumPy
+* Matplotlib
+* Seaborn
+* Scikit-learn
+* XGBoost
+* Jupyter Notebook
+
+---
+
+## Future Improvements
+
+Potential future extensions include:
+
+* Hyperparameter optimization
+* Advanced feature engineering
+* Geographic feature enrichment
+* Ensemble modeling approaches
+* Explainable AI techniques such as SHAP
+
+---
+
+## Author
+
+Akansha Wadhwani
+
+AIML Undergraduate Student
+Symbiosis Institute of Technology, Pune
+
+Interested in Machine Learning, Data Science, and building reliable AI systems through practical experimentation.
